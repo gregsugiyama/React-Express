@@ -7,8 +7,10 @@ const app = express();
 // Point static path to dist
 app.use(express.static(path.join(__dirname, "..", "public")));
 
-const routes = require("./routes");
-app.use("/", routes);
+app.get("*", (req, res, next) => {
+  const routePath = path.join(__dirname + "..", "..", "public/" + "index.html");
+  res.sendFile(routePath);
+});
 
 /** Get port from environment and store in Express. */
 const port = process.env.PORT || "3000";
