@@ -1,11 +1,14 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import "../../public/app.scss";
+import * as React from "react";
+import { NavBar } from "./NavBar";
+import { Counter } from "./Counter";
 
-export default class App extends Component {
-  render() {
-    return <p>This is my new react app</p>;
-  }
-}
-
-ReactDOM.render(<App />, document.getElementById("app"));
+export const App = props => {
+  return (
+    <div className="sans-serif">
+      <NavBar title={props.title} buttons={props.navButtons} />
+      <div className="mw9 center ph3-ns">
+        <Counter />
+      </div>
+    </div>
+  );
+};

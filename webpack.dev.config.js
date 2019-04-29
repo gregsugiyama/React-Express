@@ -11,25 +11,36 @@ var htmlPlugin = new HtmlWebPackPlugin({
 var stylePlugin = new ExtractTextPlugin("style.css");
 
 var APP_DIR = path.resolve(__dirname, "src");
-var BUILD_DIR = path.resolve(__dirname, "public");
+var BUILD_DIR = path.resolve(__dirname, "dist");
 
 module.exports = {
-  entry: [APP_DIR + "/components/App.jsx"],
+  entry: [APP_DIR + "/components/Index.jsx"],
   output: {
     path: BUILD_DIR,
     filename: "bundle.js"
   },
+  devtool: "source-map",
+
+  resolve: {
+    extensions: [".jsx", ".js", ".json"]
+  },
+
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        enforce: "pre",
+        test: /\.js$/,
+        loader: "source-map-loader"
+      },
+      {
+        test: /\.(jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
         }
       },
       {
-        test: /\.scss$/,
+        test: /\.(css|scss)$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
           use: "css-loader!sass-loader"
